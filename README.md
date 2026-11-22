@@ -17,7 +17,9 @@ On an amazon.com search results page it adds:
 - **A toolbar** with three sorts: Best reviewed (the AmaZoom score), Most
   ratings, and Amazon's order. It also has a **Hide sponsored** switch.
 - **A badge on every product** showing its AmaZoom rank and score, its stars
-  and rating count, and which results page Amazon originally put it on.
+  and rating count, and where Amazon had ranked it, with how far AmaZoom moved
+  it (for example "Amazon #12 ▲9"). Hover a badge to see which results page it
+  came from.
 - **Scan 4 more pages**, which loads the next result pages one at a time, with
   a pause between them, and merges them in. The best product is often several
   pages deep. Scanning stops if Amazon shows a robot check.

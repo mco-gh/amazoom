@@ -26,7 +26,16 @@
   border-radius: 5px;
 }
 .amz-z-detail { color: #333; font-variant-numeric: tabular-nums; }
-.amz-z-where { color: #6b6f70; font-size: 12px; margin-left: auto; }
+.amz-z-was {
+  margin-left: auto;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: #6b6f70;
+}
+.amz-z-was[hidden] { display: none; }
+.amz-z-was[data-dir="up"] { color: #067d3a; }
+.amz-z-was[data-dir="down"] { color: #b12704; }
 .amz-z-ad {
   color: #6b6f70;
   font-size: 11px;

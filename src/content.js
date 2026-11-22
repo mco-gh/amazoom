@@ -74,25 +74,46 @@
       b.innerHTML =
         `<span class="amz-z-rank"></span>` +
         `<span class="amz-z-score">${item.score.toFixed(2)}</span>` +
-        `<span class="amz-z-detail">${item.rating.toFixed(1)}★ from ${fmt(item.count)}</span>` +
-        `<span class="amz-z-where">p${item.page}</span>`;
+        `<span class="amz-z-detail">${item.rating.toFixed(1)}★ from ${fmt(item.count)}</span>`;
       b.title = `AmaZoom score ${item.score.toFixed(2)}: ${item.rating}★ from ${fmt(item.count)} ratings. ${where}.`;
     }
     if (item.sponsored) b.insertAdjacentHTML('beforeend', '<span class="amz-z-ad">Ad</span>');
+    b.insertAdjacentHTML('beforeend', '<span class="amz-z-was"></span>');
     return b;
+  }
+
+  // "Amazon #12 ▲9": where Amazon ranked it among the products shown, and
+  // how far AmaZoom moved it. Hidden in Amazon's own order, where it's moot.
+  function renderMove(item, now, was, mode) {
+    const el = item.badge.querySelector('.amz-z-was');
+    if (!now || mode === 'amazon') {
+      el.hidden = true;
+      return;
+    }
+    const delta = was - now;
+    el.hidden = false;
+    el.dataset.dir = delta > 0 ? 'up' : delta < 0 ? 'down' : 'same';
+    el.textContent = `Amazon #${was} ` + (delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '=');
+    el.title =
+      delta > 0 ? `Up ${delta} from Amazon's order` : delta < 0 ? `Down ${-delta} from Amazon's order` : "Same as Amazon's order";
   }
 
   // Re-order the cards in one DOM write, right after our anchor in the
   // results grid. Other widgets (carousels, pagination) end up after them.
   function render() {
     const { mode, hideSponsored } = state.settings;
+    const isHidden = (item) => hideSponsored && item.sponsored;
+    // Amazon's rank among the same visible products, so the moves add up.
+    const was = new Map(rank(state.items.filter((i) => !isHidden(i)), 'amazon').map((item, i) => [item, i + 1]));
     const ranked = rank(state.items, mode);
     const frag = document.createDocumentFragment();
     let n = 0;
     for (const item of ranked) {
-      const hidden = hideSponsored && item.sponsored;
+      const hidden = isHidden(item);
+      const now = hidden ? 0 : ++n;
       item.el.classList.toggle('amz-z-hidden', hidden);
-      item.badge.querySelector('.amz-z-rank').textContent = hidden ? '' : `#${++n}`;
+      item.badge.querySelector('.amz-z-rank').textContent = now ? `#${now}` : '';
+      renderMove(item, now, was.get(item), mode);
       frag.append(item.el);
     }
     anchor.after(frag);
