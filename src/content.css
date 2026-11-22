@@ -1,0 +1,38 @@
+/* Styles injected into Amazon search pages. Everything is prefixed amz-z-. */
+.amz-z-hidden { display: none !important; }
+.amz-z-anchor { display: none !important; }
+
+.amz-z-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0 0 6px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #f0f7ff;
+  border: 1px solid #b9d7f5;
+  color: #0f1111;
+  font: 13px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.amz-z-rank { font-weight: 700; color: #0b5cad; }
+.amz-z-rank:empty { display: none; }
+.amz-z-score {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: #0b5cad;
+  color: #fff;
+  padding: 0 6px;
+  border-radius: 5px;
+}
+.amz-z-detail { color: #333; font-variant-numeric: tabular-nums; }
+.amz-z-where { color: #6b6f70; font-size: 12px; margin-left: auto; }
+.amz-z-ad {
+  color: #6b6f70;
+  font-size: 11px;
+  border: 1px solid #c4c8c9;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+.amz-z-unrated { background: #f6f6f6; border-color: #ddd; }
+.amz-z-unrated .amz-z-detail { color: #6b6f70; }
