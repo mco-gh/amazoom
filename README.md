@@ -12,7 +12,7 @@ move the score. Thousands of strong ratings do.
 
 ## What it does
 
-On an amazon.com search results page it adds:
+On an amazon.com or amazon.co.uk search results page it adds:
 
 - **A toolbar** with three sorts: Best reviewed (the AmaZoom score), Most
   ratings, and Amazon's order. It also has a **Hide sponsored** switch.
@@ -31,7 +31,7 @@ has no servers, analytics, or affiliate links. Your sort choice is saved locally
 
 1. Open `chrome://extensions` and turn on **Developer mode**.
 2. Click **Load unpacked** and choose this folder.
-3. Search on https://www.amazon.com.
+3. Search on https://www.amazon.com or https://www.amazon.co.uk.
 
 ## Develop
 
@@ -48,5 +48,8 @@ has no servers, analytics, or affiliate links. Your sort choice is saved locally
 node --test test/*.mjs
 ```
 
-Only amazon.com is supported so far. Other Amazon sites use different number
-and rating formats.
+Supported: amazon.com and amazon.co.uk. Both use English labels and
+comma-separated numbers. Adding another English-language Amazon site such as
+amazon.ca or amazon.com.au is just a line in `manifest.json`. Sites in other
+languages need their "out of 5 stars", "ratings" and "Sponsored" wording
+added to `src/parse.js`.

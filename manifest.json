@@ -1,12 +1,17 @@
 {
   "manifest_version": 3,
   "name": "AmaZoom",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Re-ranks Amazon search results by how well-reviewed each product really is, weighing star ratings by how many people gave them.",
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.com/s?*", "https://www.amazon.com/s/*"],
+      "matches": [
+        "https://www.amazon.com/s?*",
+        "https://www.amazon.com/s/*",
+        "https://www.amazon.co.uk/s?*",
+        "https://www.amazon.co.uk/s/*"
+      ],
       "js": ["src/score.js", "src/parse.js", "src/content.js"],
       "css": ["src/content.css"],
       "run_at": "document_idle"
